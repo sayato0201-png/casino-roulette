@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casino Roulette</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>♠ Casino Roulette ♦</h1>
+    <div class="balance">
+      残高 <span id="balance">10,000</span> 枚
+    </div>
+  </header>
+
+  <main>
+    <section class="top">
+      <!-- ルーレット盤（canvas に描画） -->
+      <canvas id="wheel" width="400" height="400" aria-label="ルーレット盤"></canvas>
+
+      <div class="panel">
+        <div class="result">
+          <div id="result-num" class="result-num">?</div>
+          <div>
+            <div id="message" class="message">チップを選んで、テーブルに置こう！</div>
+            <div class="sub">今回の賭け金：<span id="total-bet">0</span> 枚</div>
+          </div>
+        </div>
+
+        <h2>チップ</h2>
+        <div class="chips" id="chips">
+          <button class="chip" data-value="10">10</button>
+          <button class="chip selected" data-value="50">50</button>
+          <button class="chip" data-value="100">100</button>
+          <button class="chip" data-value="500">500</button>
+          <button class="chip" data-value="1000">1K</button>
+        </div>
+
+        <div class="buttons">
+          <button class="action" id="undo">1つ戻す</button>
+          <button class="action" id="clear">全部取り消し</button>
+          <button class="action" id="rebet">前回と同じ</button>
+          <button class="action" id="double">賭け金 ×2</button>
+        </div>
+
+        <button class="spin" id="spin">SPIN！</button>
+        <button class="action refill" id="refill" hidden>チップを補充する（10,000枚）</button>
+
+        <h2>これまでの結果</h2>
+        <div class="history" id="history"><span class="empty">まだありません</span></div>
+      </div>
+    </section>
+
+    <!-- ベットテーブル（JavaScript で中身を作る） -->
+    <section class="table-wrap">
+      <div class="table" id="table"></div>
+    </section>
+    <p class="hint">マスをクリックでチップを置く ／ 右クリックでそのマスのチップを外す ／ スペースキーでスピン</p>
+
+    <details class="rules">
+      <summary>ルールと配当</summary>
+      <table>
+        <tr><th>賭け方</th><th>当たる数字</th><th>配当</th></tr>
+        <tr><td>ストレート（数字1つ）</td><td>0〜36 のうち1つ</td><td>36倍</td></tr>
+        <tr><td>ダズン（1st / 2nd / 3rd 12）</td><td>1〜12 / 13〜24 / 25〜36</td><td>3倍</td></tr>
+        <tr><td>カラム（2 to 1）</td><td>縦の列の12個</td><td>3倍</td></tr>
+        <tr><td>赤 / 黒</td><td>赤い数字 / 黒い数字</td><td>2倍</td></tr>
+        <tr><td>奇数 / 偶数</td><td>ODD / EVEN</td><td>2倍</td></tr>
+        <tr><td>前半 / 後半</td><td>1〜18 / 19〜36</td><td>2倍</td></tr>
+      </table>
+      <p>0（緑）が出ると、数字の「0」に賭けた人以外はすべて負けになります。<br>
+        盤は「ヨーロピアンルーレット」（0〜36 の37マス）と同じ並びです。</p>
+    </details>
+  </main>
+
+  <footer>授業課題のデモです。実際のお金は一切使いません。</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
